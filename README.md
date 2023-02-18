@@ -1,28 +1,83 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-f4981d0f882b2a3f0472912d15f9806d57e124e0fc890972558857b51b24a6f9.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=10181246)
-# Практична робота "Реалізація успадкування"
-Цей репозиторій містить приклад виконання та інструкції для виконання практичної роботи з наслідування в JAVA. 
+#### Діаграма
+![README](images/diag.png)
+#### Результат програми
+![README](images/result.png)
+#### Класс Animal
+```java
+package domain;
 
-Для прикладу я змоделював **звичайнісінького кота**😉
+public class Animal {
 
-<img src="https://github.com/ppc-ntu-khpi/Inheritance-Starter/blob/master/images/cat.jpg" width="100%"/>
-<img src="https://github.com/ppc-ntu-khpi/Inheritance-Starter/blob/master/images/Cat-Diagram.png" width="100%"/>
+    protected String name;
+    protected float weight;
 
-## В рамках практичної роботи ви маєте зробити наступне:
-1. подумайте, які риси та поведінка притаманні всім без винятку тваринам 
-2. оберіть будь-яку тварину (не стримуйте свою фантазію😉)
-2. з допомогою **easyUML** для Netbeans або **StarUML** створіть діаграму класів для обраної тварини. Ви маєте отримати шось подібне до прикладу з цього репозиторію.
-3. згенеруйте каркасний код на основі діаграми
-4. допрацюйте код - *всі методи мають виводити на екран повідомлення про те, що робить тварина!*
-5. створіть тестовий клас, в методі **main** якого створіть об'єкт класу тварини та викличіть його методи
-3. завантажте ваш код до до теки **src** вашого репозиторію (замінивши код прикладу). Експортовану (в PNG) діаграму завантажте в теку **images** та додайте в **Readme** (не забудьте в ньому описати що за тварину ви обрали)
-4. здайте завдання. **УВАГА! Не забудьте, здаючи завдання через Google Classroom, вказати посилання на Ваш репозиторій!**
+    public Animal() {
+        name="animal";
+        weight=30;
+    }
 
-## Відеодемонстрація виконання практичної
+    public void eat() {
+        System.out.println("Animal is eating...");
+    }
 
-<p align="center">
-<a href="https://www.youtube.com/watch?v=SFSC1omkE8Q&feature=youtu.be" target="_blank"><img src="https://img.youtube.com/vi/SFSC1omkE8Q/0.jpg"/></a>
-</p>
+    public void speak() {
+        System.out.println("Animal is speaking...");
+    }
 
-Не забувайте, що ви можете обговорювати завдання в девелоперському мессенджері **Gitter** - у відповідній [чат-кімнаті](https://gitter.im/PPC-SE-2020/OOP?utm_source=share-link&utm_medium=link&utm_campaign=share-link).
+    @Override
+    public String toString() {
+        return "Animal:" + "\nName: " + name + "\nWeight: " + weight+" kg";
+    }
+ 
+}
+```
+#### Класс Ungulates
+```java
+package domain;
 
-[![Gitter](https://badges.gitter.im/PPC-SE-2020/OOP.svg)](https://gitter.im/PPC-SE-2020/OOP?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+public class Ungulates extends Animal{
+    protected boolean hasHorns;
+    
+    public void hide(){
+        System.out.println("Animal is hiding from predators...");
+    }
+}
+```
+#### Класс Horse
+```java
+package domain;
+
+public class Horse extends Ungulates{
+    protected String coloring;
+    
+    public Horse(String name, float weight, boolean hasHorns, String coloring){
+        this.name = name;
+        this.weight = weight;
+        this.hasHorns = hasHorns;
+        this.coloring = coloring;
+    }
+    
+    public void carries(){
+        System.out.println("Horse is carries a man...");
+    }
+    
+    @Override
+    public String toString() {
+        return "Animal:" + "\nName: " + name + "\nWeight: " + weight+" kg" + "\nHorns: " + hasHorns + "\nColoring: " + coloring;
+    }
+}
+```
+#### Класс TestAnimal
+```java
+package test;
+
+import domain.Horse;
+
+public class TestAnimal {
+
+    public static void main(String[] args) {
+        Horse shelby= new Horse("Shelby", 69, true, "brown");
+        System.out.println(shelby);
+    }
+}
+```
